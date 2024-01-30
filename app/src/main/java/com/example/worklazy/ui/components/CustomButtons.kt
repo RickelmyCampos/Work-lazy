@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.worklazy.ui.theme.Primary
+import com.example.worklazy.ui.theme.Primary2
 import com.example.worklazy.ui.theme.WorkLazyTheme
 
 
@@ -44,7 +45,7 @@ fun BaseButton(
     Surface(
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
-            .clickable { onClick() }, color = if (enabled) color else Primary,contentColor= Color.White
+            .clickable { onClick() }, color = if (enabled) color else Primary2,contentColor= Color.White
     ) {
         Row (horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically){
 

@@ -5,25 +5,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.worklazy.R
-
 import com.example.worklazy.ui.components.CircleButton
 import com.example.worklazy.ui.theme.WorkLazyTheme
-import kotlin.properties.Delegates
 
 class MainActivity : ComponentActivity() {
     private lateinit var mediaPlayer: MediaPlayer
-    private var tocando=false
+    private var tocando = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AudioPlayerScreen(::Tocar)
+                    Box(
+                        modifier = with(Modifier) {
+
+                            paint(
+                                // Replace with your image id
+                                painterResource(id = R.drawable.background),
+                                contentScale = ContentScale.FillBounds
+                            )
+
+                        }) {
+
+                        AudioPlayerScreen(::Tocar)
+                    }
+
                 }
             }
         }
@@ -46,18 +58,20 @@ class MainActivity : ComponentActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.music)
     }
 
-    private fun Tocar(){
-        if(tocando){
+    private fun Tocar() {
+        if (tocando) {
             Parar()
-        }else{
+        } else {
             playAudio()
         }
-        tocando=!tocando
+        tocando = !tocando
     }
+
     private fun playAudio() {
         mediaPlayer.start()
 
     }
+
     private fun Parar() {
         mediaPlayer.stop()
         mediaPlayer.release()
@@ -68,10 +82,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AudioPlayerScreen(onClick: () -> Unit) {
-    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
         CircleButton(
             onClick = onClick,
-            text = "Trabalhe Vagabundo"
+            text = "Trabalho Vagabundo"
 
         )
     }
@@ -85,7 +103,20 @@ fun AudioPlayerScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            AudioPlayerScreen{}
+            Box(
+                modifier = with(Modifier) {
+
+                    paint(
+                        // Replace with your image id
+                        painterResource(id = R.drawable.background),
+                        contentScale = ContentScale.FillBounds
+                    )
+
+                }) {
+
+                AudioPlayerScreen {}
+            }
+
         }
     }
 }
